@@ -1,0 +1,73 @@
+local dahoodPID = (game.PlaceId == 2788229376)
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+local function executed(kickreason)
+    game:GetService("Players").LocalPlayer:Kick("[Script] " .. kickreason)
+end
+-- Block Ban / Kick Remotes. (this will allow you to modify your velocity, cframe and more.)
+coroutine.wrap(function()
+    local yes, err = pcall(function()
+        local grm = getrawmetatable(game)
+        setreadonly(grm, false)
+        old__namecall1 = grm.__namecall
+        grm.__namecall = newcclosure(function(self, ...)
+            local args = {...}
+            local remoteName = tostring(args[1])
+            local blockedRemotes = {
+                TeleportDetect = true,
+                CHECKER_1 = true,
+                CHECKER = true,
+                GUI_CHECK = true,
+                OneMoreTime = true,
+                checkingSPEED = true,
+                BANREMOTE = true,
+                PERMAIDBAN = true,
+                KICKREMOTE = true,
+                BR_KICKPC = true,
+                BR_KICKMOBILE = true,
+            }
+            if blockedRemotes[remoteName] then
+                return
+            end
+            return old__namecall1(self, ...)
+        end)
+    end)
+    if not yes then
+        executed("Executor not Supported: " .. tostring(err))
+        return
+    end
+    print("Successfully Blocked Remotes.")
+end)()
+
+-- Walkspeed Bypass. (this will allow you to set custom speeds without it changing back.)
+local plrs = game:GetService("Players")
+local mt = getrawmetatable(game)
+setreadonly(mt, false)
+local oldIndex = mt.__index
+local oldNewIndex = mt.__newindex
+local printedRead = false
+local printedWrite = false
+-- spoof might not be needed.
+mt.__index = newcclosure(function(self, key)
+    if not checkcaller() and self and typeof(self) == "Instance" and self:IsA("Humanoid") and key == "WalkSpeed" then
+        if not printedRead then
+            print("Successfully spoofed a WalkSpeed read attempt. (Will not print again)")
+            printedRead = true
+        end
+        return 16 
+    end
+    return oldIndex(self, key)
+end)
+-- dont remove this write.
+mt.__newindex = newcclosure(function(self, key, value)
+    if not checkcaller() and self and typeof(self) == "Instance" and self:IsA("Humanoid") and key == "WalkSpeed" then
+        if not printedWrite then
+            print("Blocked a WalkSpeed write attempt. The game tried to set it to:", value)
+            printedWrite = true
+        end
+        return 
+    end
+    return oldNewIndex(self, key, value)
+end)
+setreadonly(mt, true)
