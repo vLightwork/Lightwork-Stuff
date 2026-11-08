@@ -1,0 +1,117 @@
+--[[
+              --------------- [ V.1 BETA ] ---------------
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Keyboard Keys:          https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=windowsdesktop-8.0
+
+Bodyparts:              https://create.roblox.com/docs/reference/engine/enums/BodyPartR15
+
+EasingStyles:           https://create.roblox.com/docs/reference/engine/enums/EasingStyle
+
+
+Explanation:
+
+What does Panic do?
+    Panic will disable every feature off
+    incase a mod joins or you screenshare to someone
+    ( This lets you maximize your closet cheating experience )
+
+How do you use a table script?
+    true: means on. false: means off ( Do not use capital like: True or False have it lowercase like true and false )
+    Do not delete the ; off the table or it won't work you will but why?
+
+    Think of the table like a shopping list written in a single line.
+    When adding the semicolon ( comma works too ) it basically tells you to stop reading the first one
+    and moves onto the next one.
+
+--]]
+
+
+
+getgenv().GoodNight = {
+    Key = 'API_Key_Here';
+    Config = {Enabled = true; };
+    StartUP = {
+        Version = 'V1.0';
+        Intro = {Enabled = true; Wait_Till_Fully_Loaded = true}
+    };
+    Unlock = {
+        Enabled = true;
+        Cap = 999;
+        Optimizer = {
+            Enabled = false; -- This will make your game way smoother by alot, unlocks hz, makes game smoother and more
+        };
+    };
+    Panic = {
+        Enabled = false;
+        KeyBind = 'O'
+    };
+    SilentAim = {
+        Enabled = true;
+        HitChance = 100,
+        KeyBind = 'P';
+        Predict = true;
+        Prediction = 0.135;
+        HitPart = 'HumanoidRootPart';
+        NearestCursorHitPart = true;
+        HitPart_Mode = 'Nearest Point'
+    };
+    CamLock = {
+        Enabled = true,
+        KeyBind = 'q';
+        Hold_KeyBind = false;
+        KeyBind_Mode = 'KeyBind';
+        Predict = true;
+        Prediction = 0.145;
+        Smooth = true;
+        SmoothValue = 0.0700;
+        AirShot_SmoothValue = 0.0600;
+        HitPart = 'HumanoidRootPart';
+        NearestCursorHitPart = false;
+        ['EasingStyle'] = {
+            First = 'Sine',
+            Second = 'Linear',
+        }
+    };
+    Visuals = {
+        SilentAim = {
+            Show = true;
+            StickFov = true;
+            Radius = 50;
+            Color = Color3.fromRGB(100, 154, 200)
+        };
+        CamLock = {
+            Show = false;
+            Radius_Enabled = true,
+            Radius = 100;
+            Color = Color3.fromRGB(100, 154, 200)
+        };
+    };
+    Safety = {
+        AntiGroundShots = true;
+        Checks = {
+            Wall = true;
+            Knocked = false;
+            Grabbed = true;
+            Crew = false
+        };
+        Resolver = {
+            Enabled = true,
+            AntiAimViewer = true
+        };
+        Notifications = {
+            Cheats  = {  SilentAim = true, CamLock = false };
+            Visuals = {  SilentAim = true, CamLock = true  }
+        };
+    };
+    ['GunFov'] = {
+        Enabled = false,
+        DoubleBarrel = 20,
+        Revolver = 15,
+        TacticalShotgun = 20,
+        Shotgun = 20,
+    },
+}
+
+loadstring(game:HttpGet('https://raw.githubusercontent.com/vLightwork/Private/main/Loader.lua', true))()
